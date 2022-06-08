@@ -7846,9 +7846,9 @@ statuses@2.0.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
 
-strand@../strand/pkg/strand-0.1.0.tgz:
+strand@../strand/pkg/strand-0.1.1.tgz:
   version "0.1.0"
-  resolved "../strand/pkg/strand-0.1.0.tgz#e9089e9bbeb8a974e432359b7d9e96f2b44a9d38"
+  resolved "../strand/pkg/strand-0.1.1.tgz#30f2be4c055fe224eaf98b7b769d57a08bffec2c"
 
 string-length@^4.0.1:
   version "4.0.2"
