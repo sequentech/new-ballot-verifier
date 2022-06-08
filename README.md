@@ -12,7 +12,7 @@ Assuming a starting point from the root folder of this repo:
 cd ..
 git clone git@github.com:sequentech/strand.git
 git checkout felix-index
-RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals'
+export RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals'
 rustup run nightly-2022-04-07 wasm-pack build --out-name index --release --target web --features=wasmtest,wasmrayon -- -Z build-std=panic_abort,std
 rustup run nightly-2022-04-07 wasm-pack pack .
 cd ../new-ballot-verifier
