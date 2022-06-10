@@ -12,7 +12,6 @@ Assuming a starting point from the root folder of this repo:
 cd ..
 git clone git@github.com:sequentech/strand.git
 cd strand
-git checkout felix-index
 export RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals'
 rustup run nightly-2022-04-07 wasm-pack build --out-name index --release --target web --features=wasmtest -- -Z build-std=panic_abort,std
 rustup run nightly-2022-04-07 wasm-pack pack .
