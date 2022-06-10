@@ -1,28 +1,40 @@
-import React from 'react'
-import './App.css'
-import Strand, {test} from 'strand'
+import Strand from "strand"
+import styled from "styled-components"
+import {Footer} from "./components/Footer"
+import {Header} from "./components/Header"
+import {BallotVerifierScreen} from "./screens/ballot-verifier/BallotVerifierScreen"
 
-Strand().then(() => console.log('strand initialised'))
+Strand().then(() => console.log("strand initialised"))
 
-const runStrandTest = () => {
-  test()
-}
+const StyledApp = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.43;
+`
 
-const StrandButton: React.FC = () => {
-  return <div style={{background: 'gray', cursor: 'pointer'}} onClick={runStrandTest}>Click</div>
-}
+const Body = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    padding: 10px;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+`
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Ballot verifier
-        </p>
-        <StrandButton />
-      </header>
-    </div>
-  )
-}
+const App = () => (
+    <StyledApp>
+        <Header />
+        <Body>
+            <BallotVerifierScreen />
+        </Body>
+        <Footer />
+    </StyledApp>
+)
 
 export default App
