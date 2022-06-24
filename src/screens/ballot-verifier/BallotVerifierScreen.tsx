@@ -1,8 +1,9 @@
 import React, {useRef, useState} from "react"
 import {Button} from "../../components/Button"
 import styled from "styled-components"
-import {test} from "strand"
-import {hash_ballot} from "sequent-core"
+//import {test} from "strand"
+import {hash_ballot, IBallot} from "new-ballot-verifier-lib"
+//import {replicate_ballot, Ballot, Cyphertext} from "strand"
 
 const ExtendedButton = styled(Button)`
     width: 100%;
@@ -34,6 +35,13 @@ const ScreenshotImg = styled.img`
     border: 1px solid #999;
     margin: -1px;
 `
+/*
+export const testReplicate = () => {
+    const cyphertext = new Cyphertext("issue_date")
+    const ballot = new Ballot(cyphertext)
+    const c = replicate_ballot(ballot)
+    console.log(c.issue_date)
+}*/
 
 export const BallotVerifierScreen: React.FC = () => {
     const [hash, setHash] = useState<string>("")
