@@ -1,12 +1,10 @@
-//import Strand from "strand"
-import SequentCore, {my_init_function} from "new-ballot-verifier-lib"
+import NewBallotVerifierLib, {setHooks} from "new-ballot-verifier-lib"
 import styled from "styled-components"
 import {Footer} from "./components/Footer"
 import {Header} from "./components/Header"
 import {BallotVerifierScreen} from "./screens/ballot-verifier/BallotVerifierScreen"
 
-//Strand().then(() => console.log("strand initialised"))
-SequentCore().then(my_init_function)
+NewBallotVerifierLib().then(setHooks)
 
 const StyledApp = styled.div`
     display: flex;

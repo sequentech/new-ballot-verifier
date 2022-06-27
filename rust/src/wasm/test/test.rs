@@ -22,6 +22,6 @@ pub fn hash_ballot(val: &JsValue) -> String {
 }
 
 #[wasm_bindgen]
-pub fn my_init_function() {
+pub fn setHooks() {
     panic::set_hook(Box::new(console_error_panic_hook::hook));
 }
