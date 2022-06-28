@@ -4,19 +4,18 @@ Sequent cast-as-intended verifier. It allows a voter to audit an (spoiled) ballo
 
 # Installation
 
-You need to install `yarn`. This project has been tested with `yarn` version 1.22.18 and `node` version v18.3.0 . At the moment you need to download the strand library locally and compile it as well.
+You need to install `yarn`. This project has been tested with `yarn` version 1.22.18 and `node` version v18.3.0 . At the moment you need to compile the rust library included in this repo locally.
 
 Assuming a starting point from the root folder of this repo:
 
 ```
-cd ..
-git clone git@github.com:sequentech/strand.git
-cd strand
+cd rust
 export RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals'
 rustup run nightly-2022-04-07 wasm-pack build --out-name index --release --target web --features=wasmtest -- -Z build-std=panic_abort,std
 rustup run nightly-2022-04-07 wasm-pack pack .
-cd ../new-ballot-verifier
+cd ..
 yarn
+yarn start
 ```
 
 # Build
