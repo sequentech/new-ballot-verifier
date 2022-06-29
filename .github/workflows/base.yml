@@ -1,0 +1,102 @@
+name: 'Test ballot verifier end-to-end'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - github-actions
+  pull_request:
+
+permissions:
+  contents: read
+  # Needed for the 'trilom/file-changes-action' action
+  pull-requests: read
+  # This allows a subsequently queued workflow run to interrupt previous runs
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  check-links:
+    runs-on: ubuntu-20.04
+    steps:
+################################################    
+# https://www.browserstack.com/docs/automate/selenium/github-actions#sample-github-workflow-showing-a-browserstack-test 
+      - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: 'BrowserStack Local Tunnel Setup'  # Invokes the setup-local action
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: start
+          local-identifier: random
+
+# The next 3 steps are for building the web application to be tested and starting the web server on the runner environment
+
+      - name: 'Checkout the repository'
+        uses: actions/checkout@v2
+
+      - name: 'Building web application to be tested'
+        run: npm install
+
+      - name: 'Running application under test'
+        run: ./node_modules/.bin/http-server -p 8099 &
+
+      - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
+        run: node index.js  # See sample test script above
+
+      - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: stop
+################################################   
+# https://github.com/github/docs/blob/main/.github/workflows/link-check-all.yml       
+      - name: Checkout
+        uses: actions/checkout@dcd71f646680f2efd8db4afa5ad64fdcba30e748
+
+      - name: Setup node
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048
+        with:
+          node-version: '16.15.0'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Creates file "${{ env.HOME }}/files.json", among others
+      - name: Gather files changed
+        uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b
+        with:
+          fileOutput: 'json'
+
+      # For verification
+      - name: Show files changed
+        run: cat $HOME/files.json
+
+      - name: Link check (warnings, changed files)
+        env:
+          # Don't care about CDN caching image URLs
+          DISABLE_REWRITE_ASSET_URLS: true
+        run: |
+          ./script/rendered-content-link-checker.mjs \
+            --language en \
+            --max 100 \
+            --check-anchors \
+            --check-images \
+            --verbose \
+            --list $HOME/files.json
+      - name: Link check (critical, all files)
+        env:
+          # Don't care about CDN caching image URLs
+          DISABLE_REWRITE_ASSET_URLS: true
+        run: |
+          ./script/rendered-content-link-checker.mjs \
+            --language en \
+            --exit \
+            --verbose \
+            --check-images \
+            --level critical
