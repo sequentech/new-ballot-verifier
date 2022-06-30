@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-links:
+  check-links1:
     runs-on: ubuntu-20.04
     steps:
 ################################################    
