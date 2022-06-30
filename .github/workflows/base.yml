@@ -36,6 +36,9 @@ jobs:
       - name: 'Configure Nix unstable features'
         run: mkdir -p ~/.config/nix/; echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
     
+      - name: 'Install rust toolchain'
+        run: rustup toolchain install nightly-2022-04-07
+    
       - name: 'Build rust wasm package'
         env:
           RUSTFLAGS: '-C target-feature=+atomics,+bulk-memory,+mutable-globals'
