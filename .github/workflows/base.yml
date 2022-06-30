@@ -44,6 +44,12 @@ jobs:
         uses: cachix/install-nix-action@v10
         with:
           nix_path: nixpkgs=channel:nixos-unstable
+    
+      - name: 'Run nix build'
+        run: nix develop --extra-experimental-features nix-command --extra-experimental-features flakes -c bash -c 'yarn'
+    
+      - name: 'Run nix build'
+        run: nix-build
 
       # See https://github.com/marketplace/actions/nix-shell          
       - name: 'Run nix commands'
