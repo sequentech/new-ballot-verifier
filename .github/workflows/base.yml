@@ -45,8 +45,11 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
     
+      - name: 'Configure Nix unstable features'
+        run: mkdir -p ~/.config/nix/; echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+    
       - name: 'Run nix build'
-        run: nix develop --extra-experimental-features nix-command --extra-experimental-features flakes -c bash -c 'yarn'
+        run: nix develop -c bash -c 'yarn'
     
       - name: 'Run nix build'
         run: nix-build
