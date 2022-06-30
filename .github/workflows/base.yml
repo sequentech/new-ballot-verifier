@@ -22,18 +22,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
 ################################################    
-# https://www.browserstack.com/docs/automate/selenium/github-actions#sample-github-workflow-showing-a-browserstack-test 
-      - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
-        uses: browserstack/github-actions/setup-env@master
-        with:
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-
-      - name: 'BrowserStack Local Tunnel Setup'  # Invokes the setup-local action
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: start
-          local-identifier: random
 
 # The next 3 steps are for building the web application to be tested and starting the web server on the runner environment
 
@@ -63,6 +51,19 @@ jobs:
     
       - name: 'Run nix build'
         run: nix develop -c bash -c 'yarn start &'
+
+# https://www.browserstack.com/docs/automate/selenium/github-actions#sample-github-workflow-showing-a-browserstack-test 
+      - name: 'BrowserStack Env Setup'  # Invokes the setup-env action
+        uses: browserstack/github-actions/setup-env@master
+        with:
+          username: ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+      - name: 'BrowserStack Local Tunnel Setup'  # Invokes the setup-local action
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: start
+          local-identifier: random
     
       - name: 'Run nix build'
         run: nix-build
