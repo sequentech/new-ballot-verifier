@@ -48,8 +48,21 @@ jobs:
       - name: 'Configure Nix unstable features'
         run: mkdir -p ~/.config/nix/; echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
     
+      - name: 'Build rust wasm package'
+        env:
+          RUSTFLAGS: '-C target-feature=+atomics,+bulk-memory,+mutable-globals'
+        run: cd rust && rustup run nightly-2022-04-07 wasm-pack build --out-name index --release --target web --features=wasmtest -- -Z build-std=panic_abort,std
+    
+      - name: 'Create NPM package for rust wasm project'
+        env:
+          RUSTFLAGS: '-C target-feature=+atomics,+bulk-memory,+mutable-globals'
+        run: cd rust && rustup run nightly-2022-04-07 wasm-pack pack .
+    
       - name: 'Run nix build'
         run: nix develop -c bash -c 'yarn'
+    
+      - name: 'Run nix build'
+        run: nix develop -c bash -c 'yarn start &'
     
       - name: 'Run nix build'
         run: nix-build
