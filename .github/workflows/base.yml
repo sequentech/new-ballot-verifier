@@ -39,6 +39,9 @@ jobs:
       - name: 'Install rust toolchain'
         run: rustup toolchain install nightly-2022-04-07
     
+      - name: 'Install wasm-pack'
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh 
+    
       - name: 'Build rust wasm package'
         env:
           RUSTFLAGS: '-C target-feature=+atomics,+bulk-memory,+mutable-globals'
