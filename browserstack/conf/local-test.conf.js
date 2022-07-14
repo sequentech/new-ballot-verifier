@@ -9,7 +9,7 @@ const localConfig = {
   maxInstances: 5,
   commonCapabilities: {
     build: 'browserstack-build-' + process.env.GIT_COMMIT_SHA,
-    project: 'sequent-core',
+    project: 'new-ballot-verifier',
     // "browserstack.networkLogs": 'true',
   },
   capabilities: [],

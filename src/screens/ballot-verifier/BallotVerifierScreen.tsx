@@ -57,7 +57,7 @@ export const BallotVerifierScreen: React.FC = () => {
         <>
             <h1>Audit Your Ballot</h1>
             <HBox>
-                <BallotBoxArea rows={16} ref={textAreaRef} />
+                <BallotBoxArea rows={16} ref={textAreaRef} id="ballotbox-area"/>
                 <InfoBox>
                     <span>
                         Get the ballot from the voting booth, which looks like in the picture below.
@@ -68,9 +68,9 @@ export const BallotVerifierScreen: React.FC = () => {
                     <ScreenshotImg src="locator_screenshot.png"></ScreenshotImg>
                 </InfoBox>
             </HBox>
-            <p>{hash}</p>
+            <p id="calculated-hash">{hash}</p>
             <ButtonWrapper>
-                <ExtendedButton onClick={sequencer}>Verify Ballot</ExtendedButton>
+                <ExtendedButton onClick={sequencer} id="verify-button">Verify Ballot</ExtendedButton>
             </ButtonWrapper>
         </>
     )

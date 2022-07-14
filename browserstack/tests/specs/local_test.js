@@ -1,22 +1,31 @@
 // SPDX-FileCopyrightText: 2022 Félix Robles <felix@sequentech.io>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
+
 describe('wasm test local', () => {
   it('tests pass', async () => {
-    await browser.url("http://localhost:8080/src/wasm/test/test.html");
+    //const ballotFixture = await fetch('../fixtures/ballot.json').then(res => res.json());
+    const { default: ballotFixture } = await import("../../../fixtures/ballot.json", {assert: {type: "json"}});
+    await browser.url("http://localhost:3000/");
     await browser.waitUntil(
-      async () => (await browser.getTitle()).match("sequent-core wasm test"),
+      async () => (await browser.getTitle()).match("Ballot Verifier"),
       20000,
       "Title didn't match"
     );
 
-    const lognew = await $('#lognew');
+    const ballotBoxArea = await $('#ballotbox-area');
+    const verifyButton = await $('#verify-button');
+    const calculatedHash = await $('#calculated-hash');
+    const expectedHash = "bc15bf91def8033b8b586e929335c40e23ffc576a1bcb469909646222abcf6858e290b52f836cbb9744462c6869788878d88b22c8b4d9efd7cb750b700dba3e8";
+
+    ballotBoxArea.textArea = ballotFixture;
+    verifyButton.click();
 
     await browser.waitUntil(
-      async () => (await lognew.getText()).startsWith("hash: "),
+      async () => (await calculatedHash.getText()) === expectedHash,
       { 
         timeout: 20000,
-        timeoutMsg: 'Get text timeout' 
+        timeoutMsg: 'Get hash timeout' 
       }
     );
   
