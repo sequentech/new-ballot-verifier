@@ -9,12 +9,13 @@ license = "AGPL-3.0-only"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+path = "rust/src/lib.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 # wasm
-wasm-bindgen = {version = "0.2", features = ['serde-serialize'], optional = true}
+wasm-bindgen = {version = "=0.2.79", features = ['serde-serialize'], optional = true}
 web-sys = { version = "0.3.4", features = ['Performance'], optional = true}
 cfg-if = "1.0.0"
 
@@ -22,7 +23,7 @@ cfg-if = "1.0.0"
 console_error_panic_hook = "0.1.7"
 
 # sequent-core
-sequent-core = { git = "https://github.com/sequentech/sequent-core", rev = "d369272b661341e895ede3efc4803ec5bbdf488b", features = ['wasmtest']}
+sequent-core = { git = "https://github.com/sequentech/sequent-core", rev = "fd80c29a017b7e79403cee7ebefd2fba4cf62abb", features = ['wasm']}
 
 [features]
 wasmtest = ["wasm", "dep:web-sys"]

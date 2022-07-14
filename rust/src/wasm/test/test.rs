@@ -17,7 +17,7 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn hash_ballot(val: &JsValue) -> String {
-    let ballot: Ballot = val.into_serde().unwrap();
+    let ballot: AuditableBallot = val.into_serde().unwrap();
     hash_to(&ballot).unwrap()
 }
 
