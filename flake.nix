@@ -76,14 +76,14 @@
               ";
           };
 
-          packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
-            pname = "new-ballot-verifier";
-            version = "0.0.1";
-            extraBuildInputs = [
-              self.packages.${system}.new-ballot-verifier-lib
-            ];
-            src = self;
-          };
+          #packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
+          #  pname = "new-ballot-verifier";
+          #  version = "0.0.1";
+          #  extraBuildInputs = [
+          #    self.packages.${system}.new-ballot-verifier-lib
+          #  ];
+          #  src = self;
+          #};
           # new-ballot-verifier-lib is the default package
           defaultPackage = packages.new-ballot-verifier-lib;
 
