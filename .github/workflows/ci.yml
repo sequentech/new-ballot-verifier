@@ -232,7 +232,7 @@ jobs:
     - name: Install yarn packages
       uses: borales/actions-yarn@v3.0.0
       with:
-        cmd: install
+        cmd: install unsafe-disable-integrity-migration true
 
     - name: Build yarn project
       uses: borales/actions-yarn@v3.0.0
