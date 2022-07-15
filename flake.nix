@@ -76,16 +76,21 @@
               ";
           };
 
-          #packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
-          #  pname = "new-ballot-verifier";
-          #  version = "0.0.1";
-          #  extraBuildInputs = [
-          #    self.packages.${system}.new-ballot-verifier-lib
-          #  ];
-          #  src = self;
-          #};
+          packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
+            pname = "new-ballot-verifier";
+            version = "0.0.1";
+            extraBuildInputs = [
+              self.packages.${system}.new-ballot-verifier-lib
+            ];
+            src = self;
+            preBuild = ''
+              echo 'FF preBuild'
+              mkdir -p rust/pkg
+              cp ${self.packages.${system}.new-ballot-verifier-lib}/* rust/pkg/
+            '';
+          };
           # new-ballot-verifier-lib is the default package
-          defaultPackage = packages.new-ballot-verifier-lib;
+          defaultPackage = packages.new-ballot-verifier;
 
           # configure the dev shell
           devShell = (
