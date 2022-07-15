@@ -226,10 +226,6 @@ jobs:
     - name: Build the flake
       run: nix --extra-experimental-features "nix-command flakes" build -L
 
-    - name: Extract wasm files
-      run: |
-        tar -xf result/new-ballot-verifier-*.tgz
-        mv package pkg
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -256,7 +252,7 @@ jobs:
         local-identifier: random  
     
     - name: 'Run local server to serve browserstack tests'
-      run: python3 src/wasm/test/serve.py &
+      run: cd result & python3 ../rust/src/wasm/test/serve.py &
 
     - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
       env:
@@ -267,6 +263,7 @@ jobs:
         BROWSERSTACK_USERNAME=$BROWSERSTACK_USERNAME \
         BROWSERSTACK_ACCESS_KEY=$BROWSERSTACK_ACCESS_KEY \
         npm run local
+
     - name: 'BrowserStackLocal Stop'  # Terminating the BrowserStackLocal tunnel connection
       uses: browserstack/github-actions/setup-local@master
       with:

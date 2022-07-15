@@ -4,7 +4,7 @@
 import React, {useRef, useState} from "react"
 import {Button} from "../../components/Button"
 import styled from "styled-components"
-import {hash_ballot, IBallot} from "new-ballot-verifier-lib"
+import {hash_ballot} from "new-ballot-verifier-lib"
 
 const ExtendedButton = styled(Button)`
     width: 100%;
