@@ -265,7 +265,7 @@ jobs:
         local-identifier: random  
     
     - name: 'Run local server to serve browserstack tests'
-      run: cd build & python3 ../rust/src/wasm/test/serve.py &
+      run: cd build && python3 ../rust/src/wasm/test/serve.py &
 
     - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
       env:
