@@ -20,6 +20,15 @@
           pkgs = import nixpkgs {
             inherit system overlays;
           };
+          mkYarnNixPatched = { yarnLock, flags ? [] }:
+            pkgs.runCommand
+              "yarn.nix"
+              {}
+              ''
+                # filter the local dependency as yarn2nix doesn't support it
+                awk '/new-ballot-verifier-lib/,/resolved/ { next; }; /.*/ {print}' ${yarnLock} > fixed-yarn.lock
+                ${pkgs.yarn2nix}/bin/yarn2nix --lockfile fixed-yarn.lock --no-patch --builtin-fetchgit ${pkgs.lib.escapeShellArgs flags} > $out
+              '';
           rust-wasm = pkgs
             .rust-bin
             .nightly
@@ -83,10 +92,19 @@
               self.packages.${system}.new-ballot-verifier-lib
             ];
             src = self;
-            preBuild = ''
-              echo 'FF preBuild'
+            yarnLock = src + "/yarn.lock";
+            yarnNix = mkYarnNixPatched { inherit yarnLock; };
+            yarnPreBuild = ''
+              echo 'EDULIX: yarnPreBuild'
+              pwd
+              ls -lah .
               mkdir -p rust/pkg
               cp ${self.packages.${system}.new-ballot-verifier-lib}/* rust/pkg/
+            '';
+            preBuild = ''
+              echo 'EDULIX: preBuild'
+              pwd
+              ls -lah .
             '';
           };
           # new-ballot-verifier-lib is the default package
