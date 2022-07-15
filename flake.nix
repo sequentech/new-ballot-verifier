@@ -20,7 +20,6 @@
           pkgs = import nixpkgs {
             inherit system overlays;
           };
-          stdenv = pkgs.clangStdenv;
           rust-wasm = pkgs
             .rust-bin
             .nightly
@@ -77,33 +76,16 @@
               ";
           };
 
-          packages.new-ballot-verifier = stdenv.mkDerivation {
+          packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
             pname = "new-ballot-verifier";
             version = "0.0.1";
-            buildInputs = [
+            extraBuildInputs = [
               self.packages.${system}.new-ballot-verifier-lib
-              pkgs.reuse
-              pkgs.yarn
             ];
             src = self;
-            buildPhase = ''
-              mkdir -p $out/temp_home
-              export HOME=$out/temp_home
-              mkdir -p rust/pkg
-              cp ${self.packages.${system}.new-ballot-verifier-lib}/new-ballot-verifier-lib-*.tgz rust/pkg/
-              yarn
-              yarn build
-              rm -Rf $out/temp_home
-            '';
-            installPhase = ''
-              # set HOME temporarily to fix npm pack
-              mkdir -p $out
-              cp -r build/* $out
-            '';
-
           };
           # new-ballot-verifier-lib is the default package
-          defaultPackage = packages.new-ballot-verifier;
+          defaultPackage = packages.new-ballot-verifier-lib;
 
           # configure the dev shell
           devShell = (
@@ -111,7 +93,7 @@
           ) { 
             buildInputs = 
               packages.new-ballot-verifier-lib.nativeBuildInputs ++
-              [ pkgs.bash ]; 
+              [ pkgs.bash pkgs.yarn ]; 
           };
         }
     );

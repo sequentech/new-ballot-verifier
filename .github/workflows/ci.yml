@@ -226,6 +226,20 @@ jobs:
     - name: Build the flake
       run: nix --extra-experimental-features "nix-command flakes" build -L
 
+    - name: Install yarn packages
+      run: |
+        nix \
+          --extra-experimental-features "nix-command flakes" \
+          develop \
+          --command bash -c "yarn"
+
+    - name: Build yarn project
+      run: |
+        nix \
+          --extra-experimental-features "nix-command flakes" \
+          develop \
+          --command bash -c "yarn build"
+
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -252,7 +266,7 @@ jobs:
         local-identifier: random  
     
     - name: 'Run local server to serve browserstack tests'
-      run: cd result & python3 ../rust/src/wasm/test/serve.py &
+      run: cd build & python3 ../rust/src/wasm/test/serve.py &
 
     - name: 'Running test on BrowserStack'  # Invokes the actual test script that would run on BrowserStack browsers
       env:
