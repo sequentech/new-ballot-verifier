@@ -18,11 +18,11 @@ describe('wasm test local', () => {
     const calculatedHash = await $('#calculated-hash');
     const expectedHash = "bc15bf91def8033b8b586e929335c40e23ffc576a1bcb469909646222abcf6858e290b52f836cbb9744462c6869788878d88b22c8b4d9efd7cb750b700dba3e8";
 
-    ballotBoxArea.textArea = ballotFixture;
+    ballotBoxArea.textContent = ballotFixture;
     verifyButton.click();
 
     await browser.waitUntil(
-      async () => (await calculatedHash.getText()) === expectedHash,
+      async () => calculatedHash.textContent === expectedHash,
       { 
         timeout: 20000,
         timeoutMsg: 'Get hash timeout' 
