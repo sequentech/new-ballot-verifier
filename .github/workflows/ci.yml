@@ -230,18 +230,14 @@ jobs:
       run: mkdir -p rust/pkg && cp result/* rust/pkg
 
     - name: Install yarn packages
-      run: |
-        nix \
-          --extra-experimental-features "nix-command flakes" \
-          develop \
-          --command bash -c "yarn cache clean && yarn --update-checksums && yarn"
+      uses: borales/actions-yarn@v3.0.0
+      with:
+        cmd: install
 
     - name: Build yarn project
-      run: |
-        nix \
-          --extra-experimental-features "nix-command flakes" \
-          develop \
-          --command bash -c "yarn build"
+      uses: borales/actions-yarn@v3.0.0
+      with:
+        cmd: build
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
