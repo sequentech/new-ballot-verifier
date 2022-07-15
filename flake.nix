@@ -91,7 +91,6 @@
               export HOME=$out/temp_home
               mkdir -p rust/pkg
               cp ${self.packages.${system}.new-ballot-verifier-lib}/new-ballot-verifier-lib-*.tgz rust/pkg/
-              rm yarn.lock
               yarn
               yarn build
               rm -Rf $out/temp_home

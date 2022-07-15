@@ -1611,9 +1611,9 @@
   integrity sha512-LwzQKA4vzIct1zNZzBmRKI9QuNpLgTQMEjsQLf3BXuGYb3QPTP4Yjf6mkdX+X1mYttZ808QpOwAzZjv28kq7DA==
 
 "@sinclair/typebox@^0.24.1":
-  version "0.24.19"
-  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.19.tgz#5297278e0d8a1aea084685a3216074910ac6c113"
-  integrity sha512-gHJu8cdYTD5p4UqmQHrxaWrtb/jkH5imLXzuBypWhKzNkW0qfmgz+w1xaJccWVuJta1YYUdlDiPHXRTR4Ku0MQ==
+  version "0.24.20"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.20.tgz#11a657875de6008622d53f56e063a6347c51a6dd"
+  integrity sha512-kVaO5aEFZb33nPMTZBxiPEkY+slxiPtqC7QX8f9B3eGOMBvEfuMfxp9DSTTCsRJPumPKjrge4yagyssO4q6qzQ==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
@@ -6212,7 +6212,7 @@ neo-async@^2.6.2:
 
 new-ballot-verifier-lib@./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz:
   version "0.1.0"
-  resolved "./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz#9bc4ff62aec7c5254d7cf4d720f8a727c0df94ab"
+  resolved "./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz#1dca516ff3ec1a24f4ec17968552ac3310125696"
 
 no-case@^3.0.4:
   version "3.0.4"
