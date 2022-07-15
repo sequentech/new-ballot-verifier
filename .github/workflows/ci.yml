@@ -224,7 +224,7 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     - name: Build the flake
-      run: nix --extra-experimental-features "nix-command flakes" build -L .#new-ballot-verifier-lib
+      run: nix --extra-experimental-features "nix-command flakes" build -L
 
     - name: Copy the flake output
       run: mkdir -p rust/pkg && cp result/* rust/pkg

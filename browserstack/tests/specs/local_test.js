@@ -4,7 +4,6 @@
 
 describe('wasm test local', () => {
   it('tests pass', async () => {
-    //const ballotFixture = await fetch('../fixtures/ballot.json').then(res => res.json());
     const { default: ballotFixture } = await import("../../../fixtures/ballot.json", {assert: {type: "json"}});
     await browser.url("http://localhost:8080/");
     await browser.waitUntil(

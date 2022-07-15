@@ -74,25 +74,22 @@
               rm -Rf $out/temp_home
               cp pkg/new-ballot-verifier-lib-*.tgz $out
               ";
-
-            dontFixup = true;
           };
 
-          packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
-            pname = "new-ballot-verifier";
-            version = "0.0.1";
-            buildInputs = [
-              self.packages.${system}.new-ballot-verifier-lib
-            ];
-            src = self;
-            preConfigure = ''
-              echo 'FF preUnpack'
-              mkdir -p rust/pkg
-              cp ${self.packages.${system}.new-ballot-verifier-lib}/* rust/pkg/
-            '';
-          };
+          #packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
+          #  pname = "new-ballot-verifier";
+          #  version = "0.0.1";
+          #  buildInputs = [
+          #    self.packages.${system}.new-ballot-verifier-lib
+          #  ];
+          #  src = self;
+          #  preConfigure = ''
+          #    mkdir -p rust/pkg
+          #    cp ${self.packages.${system}.new-ballot-verifier-lib}/* rust/pkg/
+          #  '';
+          #};
           # new-ballot-verifier-lib is the default package
-          defaultPackage = packages.new-ballot-verifier; 
+          defaultPackage = packages.new-ballot-verifier-lib; 
 
           # configure the dev shell
           devShell = (
