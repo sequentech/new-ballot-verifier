@@ -231,7 +231,7 @@ jobs:
         nix \
           --extra-experimental-features "nix-command flakes" \
           develop \
-          --command bash -c "yarn"
+          --command bash -c "yarn cache clean && yarn"
 
     - name: Build yarn project
       run: |
