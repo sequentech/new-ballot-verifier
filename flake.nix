@@ -96,10 +96,13 @@
             yarnNix = mkYarnNixPatched { inherit yarnLock; };
             yarnPreBuild = ''
               echo 'EDULIX: yarnPreBuild'
+              mkdir -p deps/new-ballot-verifier/rust/pkg/
+              cp ${self.packages.${system}.new-ballot-verifier-lib}/* deps/new-ballot-verifier/rust/pkg/
+            '';
+            yarnPostBuild = ''
+              echo 'EDULIX: yarnPostBuild'
               pwd
               ls -lah .
-              mkdir -p rust/pkg
-              cp ${self.packages.${system}.new-ballot-verifier-lib}/* rust/pkg/
             '';
             preBuild = ''
               echo 'EDULIX: preBuild'
