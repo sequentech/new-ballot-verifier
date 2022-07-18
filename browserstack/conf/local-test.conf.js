@@ -126,9 +126,9 @@ var google = [
 var win = ext(win_, 0);
 var osx = ext(osx_, 0);
 
-localConfig.capabilities.push(...win);
-/*localConfig.capabilities.push(...osx);
-localConfig.capabilities.push(...iphone);
+//localConfig.capabilities.push(...win);
+localConfig.capabilities.push(...osx);
+/*localConfig.capabilities.push(...iphone);
 localConfig.capabilities.push(...ipad);
 localConfig.capabilities.push(...samsung);
 localConfig.capabilities.push(...google);*/
