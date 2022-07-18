@@ -117,6 +117,7 @@ exceptions = [
     # LGPL. That's why they are added here as exceptions.
     { allow = ["GPL-3.0", "LGPL-3.0"], name = "rug", version = "*" },
     { allow = ["GPL-3.0", "LGPL-3.0"], name = "gmp-mpfr-sys", version = "*" },
+    { allow = ["Unicode-DFS-2016"], name = "unicode-ident", version = "*" },
     # This is our own package, so we don't mind its license :-)
     { allow = ["AGPL-3.0"], name = "new-ballot-verifier-lib" },
     # These are other Sequent packages
