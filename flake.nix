@@ -7,7 +7,7 @@
 
   # input
   inputs.rust-overlay.url = "github:oxalica/rust-overlay";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/3aa086b0f0ef1c7e7a8239326bdecb16bc1c3b7f"; # master branch 2022-07-17: 3aa086b0f0ef1c7e7a8239326bdecb16bc1c3b7f
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/3aa086b0f0ef1c7e7a8239326bdecb16bc1c3b7f"; # master branch 2022-07-18: 3aa086b0f0ef1c7e7a8239326bdecb16bc1c3b7f
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   # output function of this flake
