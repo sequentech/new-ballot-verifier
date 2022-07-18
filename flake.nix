@@ -20,6 +20,15 @@
           pkgs = import nixpkgs {
             inherit system overlays;
           };
+          mkYarnNixPatched = { yarnLock, flags ? [] }:
+            pkgs.runCommand
+              "yarn.nix"
+              {}
+              ''
+                # filter the local dependency as yarn2nix doesn't support it
+                awk '/new-ballot-verifier-lib/,/resolved/ { next; }; /.*/ {print}' ${yarnLock} > fixed-yarn.lock
+                ${pkgs.yarn2nix}/bin/yarn2nix --lockfile fixed-yarn.lock --no-patch --builtin-fetchgit ${pkgs.lib.escapeShellArgs flags} > $out
+              '';
           rust-wasm = pkgs
             .rust-bin
             .nightly
@@ -62,34 +71,37 @@
               pkgs.reuse
             ];
             buildPhase = ''
-              echo 'Build: wasm-pack build'
+              echo 'PHASE Build: wasm-pack build'
               wasm-pack build --mode no-install --out-name index --release --target web --features=wasmtest
             '';
             installPhase = "
+              echo 'PHASE Install: wasm-pack pack'
               # set HOME temporarily to fix npm pack
               mkdir -p $out/temp_home
               export HOME=$out/temp_home
-              echo 'Install: wasm-pack pack'
               wasm-pack -v pack .
               rm -Rf $out/temp_home
               cp pkg/new-ballot-verifier-lib-*.tgz $out
               ";
           };
 
-          #packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
-          #  pname = "new-ballot-verifier";
-          #  version = "0.0.1";
-          #  buildInputs = [
-          #    self.packages.${system}.new-ballot-verifier-lib
-          #  ];
-          #  src = self;
-          #  preConfigure = ''
-          #    mkdir -p rust/pkg
-          #    cp ${self.packages.${system}.new-ballot-verifier-lib}/* rust/pkg/
-          #  '';
-          #};
+          packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
+            pname = "new-ballot-verifier";
+            version = "0.0.1";
+            buildInputs = [
+              self.packages.${system}.new-ballot-verifier-lib
+            ];
+            src = self;
+            yarnLock = src + "/yarn.lock";
+            yarnNix = mkYarnNixPatched { inherit yarnLock; };
+            yarnPreBuild = ''
+              echo 'PHASE: yarnPreBuild'
+              mkdir -p deps/new-ballot-verifier/rust/pkg/
+              cp ${self.packages.${system}.new-ballot-verifier-lib}/* deps/new-ballot-verifier/rust/pkg/
+            '';
+          };
           # new-ballot-verifier-lib is the default package
-          defaultPackage = packages.new-ballot-verifier-lib; 
+          defaultPackage = packages.new-ballot-verifier; 
 
           # configure the dev shell
           devShell = (

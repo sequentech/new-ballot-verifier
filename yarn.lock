@@ -6210,9 +6210,9 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-new-ballot-verifier-lib@./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz:
+"new-ballot-verifier-lib@file:./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz":
   version "0.1.0"
-  resolved "./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz#67ada4df81ac0892595986eb7a6851ebd7794ecf"
+  resolved "file:./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz#4497c6414b58639a12c3e384c8ae7e6c8c89dacf"
 
 no-case@^3.0.4:
   version "3.0.4"
