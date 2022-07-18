@@ -20,15 +20,15 @@
           pkgs = import nixpkgs {
             inherit system overlays;
           };
-          mkYarnNixPatched = { yarnLock, flags ? [] }:
-            pkgs.runCommand
-              "yarn.nix"
-              {}
-              ''
-                # filter the local dependency as yarn2nix doesn't support it
-                awk '/new-ballot-verifier-lib/,/resolved/ { next; }; /.*/ {print}' ${yarnLock} > fixed-yarn.lock
-                ${pkgs.yarn2nix}/bin/yarn2nix --lockfile fixed-yarn.lock --no-patch --builtin-fetchgit ${pkgs.lib.escapeShellArgs flags} > $out
-              '';
+          #mkYarnNixPatched = { yarnLock, flags ? [] }:
+          #  pkgs.runCommand
+          #    "yarn.nix"
+          #    {}
+          #    ''
+          #      # filter the local dependency as yarn2nix doesn't support it
+          #      awk '/new-ballot-verifier-lib/,/resolved/ { next; }; /.*/ {print}' ${yarnLock} > fixed-yarn.lock
+          #      ${pkgs.yarn2nix}/bin/yarn2nix --lockfile fixed-yarn.lock --no-patch --builtin-fetchgit ${pkgs.lib.#escapeShellArgs flags} > $out
+          #    '';
           rust-wasm = pkgs
             .rust-bin
             .nightly
@@ -93,7 +93,7 @@
             ];
             src = self;
             yarnLock = src + "/yarn.lock";
-            yarnNix = mkYarnNixPatched { inherit yarnLock; };
+            #yarnNix = mkYarnNixPatched { inherit yarnLock; };
             yarnPreBuild = ''
               echo 'PHASE: yarnPreBuild'
               mkdir -p deps/new-ballot-verifier/rust/pkg/
