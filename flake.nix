@@ -20,15 +20,15 @@
           pkgs = import nixpkgs {
             inherit system overlays;
           };
-          #mkYarnNixPatched = { yarnLock, flags ? [] }:
-          #  pkgs.runCommand
-          #    "yarn.nix"
-          #    {}
-          #    ''
-          #      # filter the local dependency as yarn2nix doesn't support it
-          #      awk '/new-ballot-verifier-lib/,/resolved/ { next; }; /.*/ {print}' ${yarnLock} > fixed-yarn.lock
-          #      ${pkgs.yarn2nix}/bin/yarn2nix --lockfile fixed-yarn.lock --no-patch --builtin-fetchgit ${pkgs.lib.#escapeShellArgs flags} > $out
-          #    '';
+          mkYarnNixPatched = { yarnLock, flags ? [] }:
+            pkgs.runCommand
+              "yarn.nix"
+              {}
+              ''
+                # filter the local dependency as yarn2nix doesn't support it
+                awk '/new-ballot-verifier-lib/,/resolved/ { next; }; /.*/ {print}' ${yarnLock} > fixed-yarn.lock
+                ${pkgs.yarn2nix}/bin/yarn2nix --lockfile fixed-yarn.lock --no-patch --builtin-fetchgit ${pkgs.lib.escapeShellArgs flags} > $out
+              '';
           rust-wasm = pkgs
             .rust-bin
             .nightly
@@ -83,7 +83,7 @@
               cp pkg/new-ballot-verifier-lib-*.tgz $out
               ";
           };
-
+          /*
           # Note: this is not working yet, it fails running yarn build
           packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
             pname = "new-ballot-verifier";
@@ -108,7 +108,7 @@
               yarn run build
               mv build $out
             '';
-          };
+          };*/
           # new-ballot-verifier-lib is the default package
           defaultPackage = packages.new-ballot-verifier-lib;
 
@@ -118,7 +118,7 @@
           ) { 
             buildInputs = 
               packages.new-ballot-verifier-lib.nativeBuildInputs ++
-              [ pkgs.bash pkgs.yarn ]; 
+              [ pkgs.bash ]; 
           };
         }
     );
