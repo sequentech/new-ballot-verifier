@@ -15,6 +15,7 @@ extern "C" {
     fn postMessage(s: &str);
 }
 
+#[allow(clippy::all)]
 #[wasm_bindgen]
 pub fn hash_ballot(val: &JsValue) -> String {
     let ballot: AuditableBallot = val.into_serde().unwrap();
@@ -22,6 +23,6 @@ pub fn hash_ballot(val: &JsValue) -> String {
 }
 
 #[wasm_bindgen]
-pub fn setHooks() {
+pub fn set_hooks() {
     panic::set_hook(Box::new(console_error_panic_hook::hook));
 }

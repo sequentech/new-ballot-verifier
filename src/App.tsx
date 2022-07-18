@@ -1,10 +1,13 @@
-import NewBallotVerifierLib, {setHooks} from "new-ballot-verifier-lib"
+// SPDX-FileCopyrightText: 2022 Félix Robles <felix@sequentech.io>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+import NewBallotVerifierLib, {set_hooks} from "new-ballot-verifier-lib"
 import styled from "styled-components"
 import {Footer} from "./components/Footer"
 import {Header} from "./components/Header"
 import {BallotVerifierScreen} from "./screens/ballot-verifier/BallotVerifierScreen"
 
-NewBallotVerifierLib().then(setHooks)
+NewBallotVerifierLib().then(set_hooks)
 
 const StyledApp = styled.div`
     display: flex;

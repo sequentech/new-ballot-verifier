@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022 Felix Robles <felix@sequentech.io>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
 [package]
 name = "new-ballot-verifier-lib"
 version = "0.1.0"
@@ -9,12 +12,13 @@ license = "AGPL-3.0-only"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+path = "rust/src/lib.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 # wasm
-wasm-bindgen = {version = "0.2", features = ['serde-serialize'], optional = true}
+wasm-bindgen = {version = "=0.2.79", features = ['serde-serialize'], optional = true}
 web-sys = { version = "0.3.4", features = ['Performance'], optional = true}
 cfg-if = "1.0.0"
 
@@ -22,7 +26,7 @@ cfg-if = "1.0.0"
 console_error_panic_hook = "0.1.7"
 
 # sequent-core
-sequent-core = { git = "https://github.com/sequentech/sequent-core", rev = "bc0d2fe456fc4b48ebd17fd6188bdc31f88c4ef4", features = ['wasmtest']}
+sequent-core = { git = "https://github.com/sequentech/sequent-core", rev = "fd80c29a017b7e79403cee7ebefd2fba4cf62abb", features = ['wasm']}
 
 [features]
 wasmtest = ["wasm", "dep:web-sys"]
