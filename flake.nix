@@ -38,7 +38,6 @@
                 extensions = [ "rust-src" ];
                 targets = [ "wasm32-unknown-unknown" ];
             };
-
           # see https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/rust.section.md#importing-a-cargolock-file-importing-a-cargolock-file
           cargoPatches = {
               cargoLock = let
@@ -85,6 +84,7 @@
               ";
           };
 
+          # Note: this is not working yet, it fails running yarn build
           packages.new-ballot-verifier = pkgs.mkYarnPackage rec {
             pname = "new-ballot-verifier";
             version = "0.0.1";
@@ -95,23 +95,22 @@
             yarnLock = src + "/yarn.lock";
             yarnNix = mkYarnNixPatched { inherit yarnLock; };
             yarnPreBuild = ''
-              echo 'EDULIX: yarnPreBuild'
+              echo 'PHASE: yarnPreBuild'
               mkdir -p deps/new-ballot-verifier/rust/pkg/
               cp ${self.packages.${system}.new-ballot-verifier-lib}/* deps/new-ballot-verifier/rust/pkg/
             '';
-            yarnPostBuild = ''
-              echo 'EDULIX: yarnPostBuild'
-              pwd
-              ls -lah .
-            '';
-            preBuild = ''
-              echo 'EDULIX: preBuild'
-              pwd
-              ls -lah .
+            distPhase = ''
+              echo 'PHASE: distPhase'
+              # pack command ignores cwd option
+              rm -f .yarnrc
+              cd $out/libexec/${pname}/deps/${pname}
+              cat package.json
+              yarn run build
+              mv build $out
             '';
           };
           # new-ballot-verifier-lib is the default package
-          defaultPackage = packages.new-ballot-verifier;
+          defaultPackage = packages.new-ballot-verifier-lib;
 
           # configure the dev shell
           devShell = (
