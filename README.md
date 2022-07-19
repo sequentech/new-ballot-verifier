@@ -4,6 +4,12 @@ SPDX-FileCopyrightText: 2022 Felix Robles <felix@sequentech.io>
 SPDX-License-Identifier: AGPL-3.0-only
 -->
 # new-ballot-verifier
+[![Slack][slack-badge]][slack-link]
+[![Build Status][build-badge]][build-link]
+[![codecov][codecov-badge]][codecov-link]
+[![Dependency status][dependencies-badge]][dependencies-link]
+[![License][license-badge]][license-link]
+[![REUSE][reuse-badge]][reuse-link]
 
 Sequent cast-as-intended verifier. It allows a voter to audit an (spoiled) ballot. `ballot-verifier` implements the 'cast or cancel' procedure described on the paper [Ballot Casting Assurance via Voter-Initiated Poll Station Auditing](https://www.usenix.org/legacy/event/evt07/tech/full_papers/benaloh/benaloh.pdf) by Josh Benaloh.
 
@@ -86,5 +92,34 @@ you can build the project for production with `yarn build` in the repository's
 root folder. The result will be available in the `build/` folder.
 
 
+[cargo-deny]: https://github.com/EmbarkStudios/cargo-deny
+[cargo-edit]: https://crates.io/crates/cargo-edit
+[codecov]: https://codecov.io/
+[REUSE]: https://reuse.software/
+[cargo-tarpaulin]: https://github.com/xd009642/tarpaulin
+[github-action-benchmark]: https://github.com/benchmark-action/github-action-benchmark
+
+[Contributor License Agreement]: https://cla-assistant.io/sequentech/new-ballot-verifier?pullRequest=27
+[CLA Assistant bot]: https://github.com/cla-assistant/cla-assistant
+[dependabot]:https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
+[RustSec Advisory Database]: https://github.com/RustSec/advisory-db/
 [Nix Package Manager]: https://nixos.org/
 [install Nix]: https://nixos.org/
+
+[slack-badge]: https://img.shields.io/badge/Join_us_on_Slack!-sequent--talk-blue.svg?longCache=true&logo=slack
+[slack-link]: https://join.slack.com/t/sequentech/shared_invite/zt-1bve9z0px-IF4Je04NJM8AEkCAcdBVWg
+
+[build-badge]: https://github.com/sequentech/new-ballot-verifier/workflows/CI/badge.svg?branch=main&event=push
+[build-link]: https://github.com/sequentech/new-ballot-verifier/actions?query=workflow%3ACI
+
+[codecov-badge]: https://codecov.io/gh/sequentech/new-ballot-verifier/branch/main/graph/badge.svg?token=W5QNYDEJCX
+[codecov-link]: https://codecov.io/gh/sequentech/new-ballot-verifier
+
+[dependencies-badge]: https://deps.rs/repo/github/sequentech/new-ballot-verifier/status.svg
+[dependencies-link]: https://deps.rs/repo/github/sequentech/new-ballot-verifier
+
+[license-badge]: https://img.shields.io/github/license/sequentech/new-ballot-verifier?label=license
+[license-link]: https://github.com/sequentech/new-ballot-verifier/blob/master/LICENSE
+
+[reuse-badge]: https://api.reuse.software/badge/github.com/sequentech/new-ballot-verifier
+[reuse-link]: https://api.reuse.software/info/github.com/sequentech/new-ballot-verifier
