@@ -18,7 +18,7 @@ path = "rust/src/lib.rs"
 
 [dependencies]
 # wasm
-wasm-bindgen = {version = "=0.2.81", features = ['serde-serialize'], optional = true}
+wasm-bindgen = {version = "=0.2.82", features = ['serde-serialize'], optional = true}
 web-sys = { version = "0.3.4", features = ['Performance'], optional = true}
 cfg-if = "1.0.0"
 
