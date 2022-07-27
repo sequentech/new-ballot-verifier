@@ -65,6 +65,7 @@
             nativeBuildInputs = [
               rust-wasm
               pkgs.nodePackages.npm
+              pkgs.binaryen
               pkgs.wasm-pack
               pkgs.wasm-bindgen-cli
               pkgs.libiconv
@@ -116,10 +117,11 @@
           # configure the dev shell
           devShell = (
             pkgs.mkShell.override { stdenv = pkgs.clangStdenv; }
-          ) { 
-            buildInputs = 
-              packages.new-ballot-verifier-lib.nativeBuildInputs ++
-              [ pkgs.bash ]; 
+          ) {
+          nativeBuildInputs = 
+            defaultPackage.nativeBuildInputs; 
+          buildInputs = 
+            [ pkgs.bash pkgs.reuse pkgs.cargo-deny ]; 
           };
         }
     );

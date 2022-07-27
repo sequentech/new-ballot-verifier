@@ -33,9 +33,9 @@ the project, verifying that every file is REUSE-compliant and thus has a
 copyright notice header.
 7. **Dependencies scan**: Audit dependencies for security vulnerabilities in the
 [RustSec Advisory Database], unmaintained dependencies, incompatible licenses
-and banned packages using [cargo-deny]. Use `cargo deny fix` or
-`cargo deny --allow-incompatible` to try to solve the detected issues. We also
-have configured [dependabot] to notify and create PRs on version updates.
+and banned packages using [cargo-deny]. Use `cargo deny --all-features check`
+to try to solve the detected issues. We also have configured [dependabot] to
+notify and create PRs on version updates.
 8. **Benchmark performance**: Check benchmark performance and alert on
 regressions using `cargo bench` and [github-action-benchmark].
 9. **CLA compliance**: Check that all committers have signed the 
