@@ -33,9 +33,9 @@ the project, verifying that every file is REUSE-compliant and thus has a
 copyright notice header.
 7. **Dependencies scan**: Audit dependencies for security vulnerabilities in the
 [RustSec Advisory Database], unmaintained dependencies, incompatible licenses
-and banned packages using [cargo-deny]. Use `cargo deny fix` or
-`cargo deny --allow-incompatible` to try to solve the detected issues. We also
-have configured [dependabot] to notify and create PRs on version updates.
+and banned packages using [cargo-deny]. Use `cargo deny --all-features check`
+to try to solve the detected issues. We also have configured [dependabot] to
+notify and create PRs on version updates.
 8. **Benchmark performance**: Check benchmark performance and alert on
 regressions using `cargo bench` and [github-action-benchmark].
 9. **CLA compliance**: Check that all committers have signed the 
@@ -45,7 +45,19 @@ systems using [browserstack](https://www.browserstack.com/). Run `npm run local`
 on the `browserstack` folder to try it locally. You'll need to configure the env variables 
 `GIT_COMMIT_SHA`, `BROWSERSTACK_USERNAME`, `BROWSERSTACK_ACCESS_KEY`.
 
-# Development environment
+## Development environment
+
+new-ballot-verifier uses [Github dev containers] to facilitate development. To start developing 
+new-ballot-verifier, clone the github repo locally, and open the folder in Visual Studio Code 
+in a container. This will configure the same environment that new-ballot-verifier developers 
+use, including installing required packages and VS Code plugins.
+
+We've tested this dev container for Linux x86_64 and Mac Os arch64 architectures. Unfortunately
+at the moment it doesn't work with Github Codespaces as nix doesn't work on Github Codespaces yet.
+Also the current dev container configuration for new-ballot-verifier doesn't allow commiting 
+to the git repo from the dev container, you should use git on a local terminal.
+
+## Nix reproducible builds
 
 new-ballot-verifier uses [Nix Package Manager] as its package builder. To build
 new-ballot-verifier, **first [install Nix]** correctly in your system.
@@ -60,7 +72,8 @@ nix develop
 
 At the moment you need to compile the rust library included in this repo
 locally. Assuming a starting point from the root folder of this repo and after
-executing `nix develop`:
+executing `nix develop`. If you're running the project on a dev container,
+you shouldn't need to install it.
 
 ```bash
 cd rust/
@@ -105,6 +118,7 @@ root folder. The result will be available in the `build/` folder.
 [RustSec Advisory Database]: https://github.com/RustSec/advisory-db/
 [Nix Package Manager]: https://nixos.org/
 [install Nix]: https://nixos.org/
+[Github dev containers]: https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/introduction-to-dev-containers
 
 [slack-badge]: https://img.shields.io/badge/Join_us_on_Slack!-sequent--talk-blue.svg?longCache=true&logo=slack
 [slack-link]: https://join.slack.com/t/sequentech/shared_invite/zt-1bve9z0px-IF4Je04NJM8AEkCAcdBVWg
