@@ -6212,7 +6212,7 @@ neo-async@^2.6.2:
 
 "new-ballot-verifier-lib@file:./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz":
   version "0.1.0"
-  resolved "file:./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz#9ec990e81d8107d02dc4eccc9ef8a9e17a55dd49"
+  resolved "file:./rust/pkg/new-ballot-verifier-lib-0.1.0.tgz#227c43b2ad38fead7d9176c0ba9fc0c70640e7ba"
 
 no-case@^3.0.4:
   version "3.0.4"
